@@ -47,7 +47,7 @@ def registerPlayer(name):
     conn = connect()
     cursor = conn.cursor()
     name_sanitized = name.replace("'","''")
-    cursor.execute("insert into players (name) values ('%s');" % name_sanitized)
+    cursor.execute("insert into players (name) values (%s);", (name_sanitized,))
     return conn.commit()
 
 
@@ -80,7 +80,7 @@ def reportMatch(winner, loser):
     """
     conn = connect()
     cursor = conn.cursor()
-    cursor.execute("insert into match (winner, loser) values (%d, %d);" % (winner, loser))
+    cursor.execute("insert into match (winner, loser) values (%s, %s);", (winner, loser,))
     return conn.commit()
 
  
